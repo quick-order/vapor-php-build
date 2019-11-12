@@ -321,7 +321,7 @@ ENV VERSION_GMP=${gmp}
 ENV GMP_BUILD_DIR=${BUILD_DIR}/gmp
 
 RUN set -xe; \
-    mkdir -p ${GMP_BUILD_DIR}; \
+    mkdir -p ${GMP_BUILD_DIR}/bin; \
     curl -Ls https://gmplib.org/download/gmp/gmp-${VERSION_GMP}.tar.xz \
     | tar xJC ${GMP_BUILD_DIR} --strip-components=1
 
@@ -334,7 +334,7 @@ RUN set -xe; \
     ./configure \
         --prefix=${INSTALL_DIR} \
         --enable-shared \
-        --disable-static
+        --enable-static
 
 RUN set -xe; \
     make install
@@ -376,7 +376,7 @@ RUN set -xe \
         --with-jpeg-dir=${INSTALL_DIR} \
         --with-xsl=${INSTALL_DIR} \
         --with-gd \
-	    --with-gmp=${INSTALL_DIR} \
+	    --with-gmp=shared,${INSTALL_DIR} \
         --disable-phpdbg \
         --disable-phpdbg-webhelper \
         --with-sodium \
