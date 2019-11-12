@@ -321,7 +321,7 @@ ENV VERSION_GMP=${gmp}
 ENV GMP_BUILD_DIR=${BUILD_DIR}/gmp
 
 RUN set -xe; \
-    mkdir -p ${GMP_BUILD_DIR}/bin; \
+    mkdir -p ${GMP_BUILD_DIR}; \
     curl -Ls https://gmplib.org/download/gmp/gmp-${VERSION_GMP}.tar.xz \
     | tar xJC ${GMP_BUILD_DIR} --strip-components=1
 
@@ -334,7 +334,7 @@ RUN set -xe; \
     ./configure \
         --prefix=${INSTALL_DIR} \
         --enable-shared \
-        --enable-static
+        --disable-static
 
 RUN set -xe; \
     make install
